@@ -13,9 +13,11 @@ public class AdminDao {
     }
 
     public void addAdmin(Admin admin) throws SQLException {
-        String sql = "INSERT INTO Admin (name) VALUES (?)";
+        String sql = "INSERT INTO Admin (name, username, password) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, admin.getName());
+            stmt.setString(2, admin.getUsername());
+            stmt.setString(3, admin.getPassword());
             stmt.executeUpdate();
         }
     }
@@ -24,31 +26,62 @@ public class AdminDao {
         String sql = "SELECT * FROM Admin WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return new Admin(rs.getInt("id"), rs.getString("name"));
-            } else {
-                return null;
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Admin(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("username"),
+                            rs.getString("password")
+                    );
+                }
             }
         }
+        return null;
+    }
+
+    public Admin getAdminByUsername(String username) throws SQLException {
+        String sql = "SELECT * FROM Admin WHERE username = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Admin(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("username"),
+                            rs.getString("password")
+                    );
+                }
+            }
+        }
+        return null;
     }
 
     public List<Admin> getAllAdmins() throws SQLException {
+        List<Admin> admins = new ArrayList<>();
         String sql = "SELECT * FROM Admin";
-        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            List<Admin> admins = new ArrayList<>();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                admins.add(new Admin(rs.getInt("id"), rs.getString("name")));
+                admins.add(new Admin(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("username"),
+                        rs.getString("password")
+                ));
             }
-            return admins;
         }
+        return admins;
     }
 
     public void updateAdmin(Admin admin) throws SQLException {
-        String sql = "UPDATE Admin SET name = ? WHERE id = ?";
+        String sql = "UPDATE Admin SET name = ?, username = ?, password = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, admin.getName());
-            stmt.setInt(2, admin.getId());
+            stmt.setString(2, admin.getUsername());
+            stmt.setString(3, admin.getPassword());
+            stmt.setInt(4, admin.getId());
             stmt.executeUpdate();
         }
     }
