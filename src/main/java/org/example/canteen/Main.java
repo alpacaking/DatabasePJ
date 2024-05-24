@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 public class Main {
     private static UserService userService = new UserService();
-    private static MerchantService merchantService = new MerchantService();
+    private static MerchantService merchantService;
     private static AdminService adminService = new AdminService();
-    private static OrderService orderService = new OrderService();
+    private static OrderService orderService;
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {

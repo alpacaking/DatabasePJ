@@ -21,6 +21,8 @@ public class DishDao {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -32,6 +34,8 @@ public class DishDao {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -55,6 +59,9 @@ public class DishDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -81,6 +88,8 @@ public class DishDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return dishes;
     }

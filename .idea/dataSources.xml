@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="canteen" uuid="c74de3b9-8ff3-42d5-b417-b97c37d65e80">
+    <data-source source="LOCAL" name="@localhost" uuid="acaa18ef-590a-4dad-bd77-87cacb202da2">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

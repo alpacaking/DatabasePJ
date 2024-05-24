@@ -20,6 +20,8 @@ public class OrderDao {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -44,6 +46,8 @@ public class OrderDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return orders;
     }
