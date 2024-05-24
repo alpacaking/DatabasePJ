@@ -1,102 +1,73 @@
 package org.example.canteen.dao;
 
 import org.example.canteen.model.Merchant;
+import org.example.canteen.util.DatabaseUtil;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MerchantDao {
-    private Connection connection;
-
-    public MerchantDao(Connection connection) {
-        this.connection = connection;
-    }
-
-    public void addMerchant(Merchant merchant) throws SQLException {
-        String sql = "INSERT INTO Merchant (name, address, username, password) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, merchant.getName());
-            stmt.setString(2, merchant.getAddress());
-            stmt.setString(3, merchant.getUsername());
-            stmt.setString(4, merchant.getPassword());
-            stmt.executeUpdate();
-        }
-    }
-
-    public Merchant getMerchantById(int id) throws SQLException {
-        String sql = "SELECT * FROM Merchant WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new Merchant(
-                            rs.getInt("id"),
-                            rs.getString("name"),
-                            rs.getString("address"),
-                            rs.getString("username"),
-                            rs.getString("password")
-                    );
-                }
+    public Merchant findByUserId(int userId) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM merchants WHERE user_id = ?")) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Merchant(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("address"), resultSet.getInt("user_id"));
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
 
-    public Merchant getMerchantByUsername(String username) throws SQLException {
-        String sql = "SELECT * FROM Merchant WHERE username = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new Merchant(
-                            rs.getInt("id"),
-                            rs.getString("name"),
-                            rs.getString("address"),
-                            rs.getString("username"),
-                            rs.getString("password")
-                    );
-                }
-            }
-        }
-        return null;
-    }
-
-    public List<Merchant> getAllMerchants() throws SQLException {
-        List<Merchant> merchants = new ArrayList<>();
-        String sql = "SELECT * FROM Merchant";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                merchants.add(new Merchant(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("address"),
-                        rs.getString("username"),
-                        rs.getString("password")
-                ));
-            }
-        }
-        return merchants;
-    }
-
-    public void updateMerchant(Merchant merchant) throws SQLException {
-        String sql = "UPDATE Merchant SET name = ?, address = ?, username = ?, password = ? WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, merchant.getName());
-            stmt.setString(2, merchant.getAddress());
-            stmt.setString(3, merchant.getUsername());
-            stmt.setString(4, merchant.getPassword());
-            stmt.setInt(5, merchant.getId());
-            stmt.executeUpdate();
+    public void addDish(String name, double price, String category, String description, String imageUrl, int merchantId) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO dishes (name, price, category, description, image_url, merchant_id) VALUES (?, ?, ?, ?, ?, ?)")) {
+            statement.setString(1, name);
+            statement.setDouble(2, price);
+            statement.setString(3, category);
+            statement.setString(4, description);
+            statement.setString(5, imageUrl);
+            statement.setInt(6, merchantId);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public void deleteMerchant(int id) throws SQLException {
-        String sql = "DELETE FROM Merchant WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
+    public void deleteDish(int dishId) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM dishes WHERE id = ?")) {
+            statement.setInt(1, dishId);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addMerchant(String name, String address, int userId) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO merchants (name, address, user_id) VALUES (?, ?, ?)")) {
+            statement.setString(1, name);
+            statement.setString(2, address);
+            statement.setInt(3, userId);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteMerchant(int merchantId) {
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM merchants WHERE id = ?")) {
+            statement.setInt(1, merchantId);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

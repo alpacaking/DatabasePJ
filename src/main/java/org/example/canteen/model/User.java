@@ -1,22 +1,24 @@
 package org.example.canteen.model;
 
-
 public class User {
     private int id;
     private String name;
     private String gender;
-    private String studentIdOrStaffId;
+    private String role;
     private String username;
     private String password;
+    private String studentId;
+    private String staffId;
 
     // 构造函数
-    public User(int id, String name, String gender, String studentIdOrStaffId, String username, String password) {
-        this.id = id;
+    public User(String name, String gender, String role, String username, String password, String studentId, String staffId) {
         this.name = name;
         this.gender = gender;
-        this.studentIdOrStaffId = studentIdOrStaffId;
+        this.role = role;
         this.username = username;
         this.password = password;
+        this.studentId = studentId;
+        this.staffId = staffId;
     }
 
     // Getter 和 Setter 方法
@@ -44,12 +46,12 @@ public class User {
         this.gender = gender;
     }
 
-    public String getStudentIdOrStaffId() {
-        return studentIdOrStaffId;
+    public String getRole() {
+        return role;
     }
 
-    public void setStudentIdOrStaffId(String studentIdOrStaffId) {
-        this.studentIdOrStaffId = studentIdOrStaffId;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getUsername() {
@@ -67,4 +69,21 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+    }
 }
+
