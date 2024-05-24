@@ -41,6 +41,7 @@ public class UserService {
     }
 
     public void manageFavorites() {
+
         // Implement favorite management logic
         System.out.println("收藏管理:");
         System.out.println("1. 查看收藏");
@@ -63,27 +64,32 @@ public class UserService {
     }
 
     private void viewFavorites() {
-        // Logic to view favorites
+
+        // TODO Logic to view favorites
         System.out.println("查看收藏功能尚未实现");
     }
 
     private void addFavorite() {
-        // Logic to add a favorite
+
+        // TODO Logic to add a favorite
         System.out.println("添加收藏功能尚未实现");
     }
 
     private void deleteFavorite() {
-        // Logic to delete a favorite
+
+        // TODO Logic to delete a favorite
         System.out.println("删除收藏功能尚未实现");
     }
 
     public void viewMessages() {
-        // Implement message viewing logic
+
+        // TODO Implement message viewing logic
         System.out.println("消息查看功能尚未实现");
     }
 
     public void reviewItems() {
-        // Implement item reviewing logic
+
+        // TODO Implement item reviewing logic
         System.out.println("评价功能尚未实现");
     }
 }

@@ -16,22 +16,26 @@ public class MerchantService {
     }
 
     public void searchMerchants() {
-        // Implement merchant searching logic
+
+        // TODO Implement merchant searching logic
         System.out.println("商户搜索功能尚未实现");
     }
 
     public void viewMerchantDetails() {
-        // Implement merchant detail viewing logic
+
+        // TODO Implement merchant detail viewing logic
         System.out.println("查看商户详情功能尚未实现");
     }
 
     public void searchDishes() {
-        // Implement dish searching logic
+
+        // TODO Implement dish searching logic
         System.out.println("菜品搜索功能尚未实现");
     }
 
     public void viewDishDetails() {
-        // Implement dish detail viewing logic
+
+        // TODO Implement dish detail viewing logic
         System.out.println("查看菜品详情功能尚未实现");
     }
 
@@ -76,7 +80,8 @@ public class MerchantService {
     }
 
     public void manageMerchantInfo() {
-        // Implement merchant information management logic
+
+        // TODO Implement merchant information management logic
         System.out.println("商户信息管理功能尚未实现");
     }
 }
